@@ -20,19 +20,19 @@ class Human:
 
 
 def get_first_male_name():
-    with open('male_names.json', 'r') as file:
+    with open('base\\male_names.json', 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
 
 def get_first_female_name():
-    with open('female_names.json', 'r') as file:
+    with open('base\\female_names.json', 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
 
 def get_last_name():
-    with open('last_names.json', 'r') as file:
+    with open('base\\last_names.json', 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
