@@ -1,1 +1,1 @@
-include *.json
+include human_generate/base/*.json
