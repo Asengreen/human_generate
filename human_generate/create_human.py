@@ -1,6 +1,8 @@
 import json
 from random import choice as rand_choice
 from random import randint
+import os
+print(os.getcwd())
 
 
 class Human:
