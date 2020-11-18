@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="human_generate-Asen", # Replace with your own username
-    version="0.0.6",
+    version="0.1.6",
     author="Asen",
     author_email="asengreenfire@gmail.com",
     description="Create fullname and birthday",

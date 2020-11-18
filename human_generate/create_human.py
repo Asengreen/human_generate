@@ -6,12 +6,22 @@ from random import choice as rand_choice
 from random import randint
 
 
+def get_name_base(name_base):
+    path = os.path.join(COMMON_PATH, name_base)
+    with open(path, 'r') as file:
+        names = json.loads(file.read())
+    return names
+
+
 if __name__ == '__main__':
     find_path = 'base'
 else:
     find_path = '**/human_generate/base'
 
 COMMON_PATH = glob.glob(find_path, recursive=True)[0]
+FIRST_NAME_MALE_BASE = get_name_base('male_names.json')
+FIRST_NAME_FEMALE_BASE = get_name_base('female_names.json')
+LAST_NAME_BASE = get_name_base('last_names.json')
 
 
 class Human:
@@ -22,39 +32,18 @@ class Human:
         else:
             self.sex = sex
         if self.sex == 'Male':
-            self.first_name = get_first_male_name()
+            self.first_name = rand_choice(FIRST_NAME_MALE_BASE)
 
         if self.sex == 'Female':
-            self.first_name = get_first_female_name()
+            self.first_name = rand_choice(FIRST_NAME_FEMALE_BASE)
 
-        self.last_name = get_last_name()
+        self.last_name = rand_choice(LAST_NAME_BASE)
         self.birth_day = get_birth_day()
         self.birth_month = get_birth_month()
         self.birth_year = get_birth_year()
 
     def info(self):
         print(self.first_name, self.last_name, self.sex, f'{self.birth_day}.{self.birth_month}.{self.birth_year}')
-
-
-def get_first_male_name():
-    path = os.path.join(COMMON_PATH, 'male_names.json')
-    with open(path, 'r') as file:
-        names = json.loads(file.read())
-    return rand_choice(names)
-
-
-def get_first_female_name():
-    path = os.path.join(COMMON_PATH, 'female_names.json')
-    with open(path, 'r') as file:
-        names = json.loads(file.read())
-    return rand_choice(names)
-
-
-def get_last_name():
-    path = os.path.join(COMMON_PATH, 'last_names.json')
-    with open(path, 'r') as file:
-        names = json.loads(file.read())
-    return rand_choice(names)
 
 
 def get_birth_day():
@@ -67,7 +56,3 @@ def get_birth_month():
 
 def get_birth_year():
     return randint(1960, 2000)
-
-
-hum = Human()
-hum.info()
