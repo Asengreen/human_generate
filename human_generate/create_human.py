@@ -1,18 +1,33 @@
+import glob
+import os.path
 import json
+
 from random import choice as rand_choice
 from random import randint
-import os
-print(os.getcwd())
+
+
+if __name__ == '__main__':
+    find_path = 'base'
+else:
+    find_path = '**/human_generate/base'
+
+COMMON_PATH = glob.glob(find_path, recursive=True)[0]
 
 
 class Human:
-    def __init__(self, sex):
-        if sex == 'Male':
+    def __init__(self, sex=None):
+        if not sex:
+            sex = rand_choice(['Male', 'Female'])
+            self.sex = sex
+        else:
+            self.sex = sex
+        if self.sex == 'Male':
             self.first_name = get_first_male_name()
-        if sex == 'Female':
+
+        if self.sex == 'Female':
             self.first_name = get_first_female_name()
+
         self.last_name = get_last_name()
-        self.sex = sex
         self.birth_day = get_birth_day()
         self.birth_month = get_birth_month()
         self.birth_year = get_birth_year()
@@ -22,19 +37,22 @@ class Human:
 
 
 def get_first_male_name():
-    with open('base\\male_names.json', 'r') as file:
+    path = os.path.join(COMMON_PATH, 'male_names.json')
+    with open(path, 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
 
 def get_first_female_name():
-    with open('base\\female_names.json', 'r') as file:
+    path = os.path.join(COMMON_PATH, 'female_names.json')
+    with open(path, 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
 
 def get_last_name():
-    with open('base\\last_names.json', 'r') as file:
+    path = os.path.join(COMMON_PATH, 'last_names.json')
+    with open(path, 'r') as file:
         names = json.loads(file.read())
     return rand_choice(names)
 
@@ -49,3 +67,7 @@ def get_birth_month():
 
 def get_birth_year():
     return randint(1960, 2000)
+
+
+hum = Human()
+hum.info()
